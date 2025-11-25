@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-g+*cuw%=foj(ft2i(=71dmn!y4sq3rw70+uqt9ycvy!^c82-9w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -78,6 +78,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://habit-tracker-4p0d.onrender.com",
+]
 
 AUTH_USER_MODEL = 'trackerapp.User'
 
