@@ -16,9 +16,15 @@ def index(request):
     return render(request, 'index.html')
 
 
-class UserViewSet(viewsets.ViewSet, generics.ListAPIView, generics.CreateAPIView, generics.UpdateAPIView):
+class UserViewSet(viewsets.ViewSet, generics.CreateAPIView, generics.UpdateAPIView):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    @action(methods=["get"], detail=False, url_path='me', url_name='me', permission_classes=[IsAuthenticated])
+    def get_current_user(self, request):
+        serializer = self.get_serializer(request.user)
+        return Response(serializer.data)
 
 
 class HabitViewSet(viewsets.ViewSet, generics.ListAPIView, generics.CreateAPIView, generics.RetrieveAPIView,
@@ -63,7 +69,8 @@ class HabitViewSet(viewsets.ViewSet, generics.ListAPIView, generics.CreateAPIVie
         log_serializer = serializers.HabitLogSerializer(all_logs, many=True)
 
         # Get current streak
-        actived_logs = HabitLog.objects.filter(habit=habit, status=True).order_by('-date').values_list('date', flat=True)
+        actived_logs = HabitLog.objects.filter(habit=habit, status=True).order_by('-date').values_list('date',
+                                                                                                       flat=True)
         # Convert sang date và loại trùng lặp (nếu có nhiều log trong 1 ngày)
         today = timezone.localdate()
         dates = sorted({dt.astimezone(timezone.get_current_timezone()).date() for dt in actived_logs}, reverse=True)
