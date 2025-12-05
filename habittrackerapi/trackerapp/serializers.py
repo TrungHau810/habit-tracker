@@ -13,6 +13,12 @@ class UserSerializer(serializers.ModelSerializer):
             'email': {'validators': []},  # Disable unique validator for email
         }
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if instance.avatar:
+            data['avatar'] = instance.avatar.url
+        return data
+
     def create(self, validated_data):
         username = validated_data.get('username', '')
         if not username:
@@ -50,3 +56,9 @@ class HabitLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = HabitLog
         fields = '__all__'
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if instance.photo:
+            data['photo'] = instance.photo.url
+        return data
