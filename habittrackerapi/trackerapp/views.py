@@ -22,11 +22,9 @@ class UserViewSet(viewsets.ViewSet, generics.CreateAPIView, generics.UpdateAPIVi
     permission_classes = [IsAuthenticated]
 
     def get_permissions(self):
-        if self.action in ['create']:
-            self.permission_classes = []
-        else:
-            self.permission_classes = [IsAuthenticated]
-        return super().get_permissions()
+        if self.action == "create":
+            return []
+        return [IsAuthenticated()]
 
     @action(methods=["get"], detail=False, url_path='me', url_name='me', permission_classes=[IsAuthenticated])
     def get_current_user(self, request):
