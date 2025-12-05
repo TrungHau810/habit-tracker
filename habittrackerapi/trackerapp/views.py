@@ -21,6 +21,13 @@ class UserViewSet(viewsets.ViewSet, generics.CreateAPIView, generics.UpdateAPIVi
     serializer_class = serializers.UserSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_permissions(self):
+        if self.action in ['create']:
+            self.permission_classes = []
+        else:
+            self.permission_classes = [IsAuthenticated]
+        return super().get_permissions()
+
     @action(methods=["get"], detail=False, url_path='me', url_name='me', permission_classes=[IsAuthenticated])
     def get_current_user(self, request):
         serializer = self.get_serializer(request.user)
