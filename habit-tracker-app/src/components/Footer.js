@@ -1,110 +1,76 @@
-import { Box, Grid, Typography, IconButton } from "@mui/material";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import EmailIcon from "@mui/icons-material/Email";
-import PhoneIcon from "@mui/icons-material/Phone";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import { MapPinIcon, EnvelopeIcon, PhoneIcon } from "@heroicons/react/24/outline";
+import { FaFacebook, FaInstagram, FaGithub } from "react-icons/fa";
 
 export default function Footer() {
-    const nav = useNavigate();
-
     return (
-        <Box sx={{ backgroundColor: "#1976d2", color: "white", py: 4, mt: 4 }}>
-            <Grid container spacing={4} justifyContent="center">
+        <footer className="bg-blue-600 text-white py-10 mt-10">
+            <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-3 gap-8">
 
-                {/* Cột 1 - Giới thiệu */}
-                <Grid item xs={12} sm={4}>
-                    <Typography variant="h6">Habit Tracker</Typography>
-                    <Typography variant="body2" sx={{ mt: 1 }}>
+                <div>
+                    <h2 className="text-xl font-bold">Habit Tracker</h2>
+                    <p className="mt-2 text-sm leading-relaxed">
                         Habit Tracker là ứng dụng giúp bạn xây dựng và duy trì những thói quen tốt hàng ngày.
-                    </Typography>
-                    <Typography variant="body2" sx={{ mt: 1 }}>
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed">
                         Theo dõi tiến trình, phân tích thói quen và cải thiện bản thân mỗi ngày cùng chúng tôi!
-                    </Typography>
-                </Grid>
+                    </p>
+                </div>
 
                 {/* Cột 2 - Liên kết */}
-                <Grid item xs={12} sm={4}>
-                    <Typography variant="h6">Liên kết</Typography>
-                    <Box sx={{ mt: 1 }}>
-                        <Link to="/"
-                            style={{
-                                color: "white",
-                                textDecoration: "none",
-                                fontSize: "16px",
-                                display: "block",
-                                marginBottom: "6px"
-                            }}>
-                            Trang chủ
-                        </Link>
-                        <Link to="/products"
-                            style={{
-                                color: "white",
-                                textDecoration: "none",
-                                fontSize: "16px",
-                                display: "block",
-                                marginBottom: "6px"
-                            }}>
-                            Sản phẩm
-                        </Link>
-                        <Link to="/about"
-                            style={{
-                                color: "white",
-                                textDecoration: "none",
-                                fontSize: "16px",
-                                display: "block",
-                                marginBottom: "6px"
-                            }}>
-                            Giới thiệu
-                        </Link>
-                        <Link to="/contact"
-                            style={{
-                                color: "white",
-                                textDecoration: "none",
-                                fontSize: "16px",
-                                display: "block",
-                                marginBottom: "6px"
-                            }}>
-                            Liên hệ
-                        </Link>
-                    </Box>
-                </Grid>
+                <div>
+                    <h2 className="text-xl font-bold">Liên kết</h2>
+
+                    <div className="mt-3 space-y-2">
+                        <Link className="block hover:underline" to="/">Trang chủ</Link>
+                        <Link className="block hover:underline" to="/products">Sản phẩm</Link>
+                        <Link className="block hover:underline" to="/about">Giới thiệu</Link>
+                        <Link className="block hover:underline" to="/contact">Liên hệ</Link>
+                    </div>
+                </div>
 
                 {/* Cột 3 - Thông tin liên hệ */}
-                <Grid item xs={12} sm={4}>
-                    <Typography variant="h6">Thông tin liên hệ</Typography>
+                <div>
+                    <h2 className="text-xl font-bold">Thông tin liên hệ</h2>
 
-                    <Box sx={{ mt: 1 }}>
-                        <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                            <LocationOnIcon sx={{ mr: 1 }} />
-                            <Typography>123 Đường ABC, Quận 1, TP.HCM</Typography>
-                        </Box>
+                    <div className="mt-3 space-y-2">
+                        <div className="flex items-center">
+                            <MapPinIcon className="w-5 h-5 mr-2" />
+                            <p>123 Đường ABC, Quận 1, TP.HCM</p>
+                        </div>
 
-                        <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                            <EmailIcon sx={{ mr: 1 }} />
-                            <Typography>Email: contact@mywebsite.com</Typography>
-                        </Box>
+                        <div className="flex items-center">
+                            <EnvelopeIcon className="w-5 h-5 mr-2" />
+                            <p>Email: contact@mywebsite.com</p>
+                        </div>
 
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
-                            <PhoneIcon sx={{ mr: 1 }} />
-                            <Typography>Hotline: 0909 123 456</Typography>
-                        </Box>
-                    </Box>
+                        <div className="flex items-center">
+                            <PhoneIcon className="w-5 h-5 mr-2" />
+                            <p>Hotline: 0909 123 456</p>
+                        </div>
+                    </div>
 
                     {/* Icon mạng xã hội */}
-                    <Box sx={{ mt: 2 }}>
-                        <IconButton color="inherit"><FacebookIcon /></IconButton>
-                        <IconButton color="inherit"><InstagramIcon /></IconButton>
-                        <IconButton href="https://github.com/TrungHau810" color="inherit"><GitHubIcon /></IconButton>
-                    </Box>
-                </Grid>
-            </Grid>
+                    <div className="flex items-center gap-3 mt-4 text-xl">
+                        <a href="#" className="hover:text-gray-200"><FaFacebook /></a>
+                        <a href="#" className="hover:text-gray-200"><FaInstagram /></a>
+                        <a
+                            href="https://github.com/TrungHau810"
+                            className="hover:text-gray-200"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            <FaGithub />
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-            <Typography align="center" sx={{ mt: 3, opacity: 0.7 }}>
+            {/* Copyright */}
+            <p className="text-center mt-8 text-sm opacity-80">
                 © {new Date().getFullYear()} Habit Tracker. All rights reserved.
-            </Typography>
-        </Box>
+            </p>
+        </footer>
     );
 }

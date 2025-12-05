@@ -1,102 +1,78 @@
-import {
-    Box,
-    Button,
-    Container,
-    Grid,
-    Typography,
-    Paper,
-    Stack,
-} from "@mui/material";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import TimelineIcon from "@mui/icons-material/Timeline";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
-import { Link as RouterLink } from "react-router-dom";
+// HEROICON IMPORT
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { ChartBarIcon } from "@heroicons/react/24/outline";
+import { SparklesIcon } from "@heroicons/react/24/outline";
 
 export default function Home() {
     return (
-        <Box sx={{ bgcolor: "#f7f7f7", minHeight: "100vh", pt: 8 }}>
+        <>
+            <Helmet>
+                <title>Habit Tracker - Trang chủ</title>
+            </Helmet>
 
-            {/* HERO SECTION */}
-            <Container maxWidth="md" sx={{ textAlign: "center", mb: 8 }}>
-                <Typography variant="h3" fontWeight="bold" mb={2}>
-                    Chào mừng đến với Habit Tracker
-                </Typography>
+            <div className="bg-gray-100 min-h-screen pt-20">
 
-                <Typography variant="h6" color="text.secondary" mb={4}>
-                    Xây dựng thói quen tốt mỗi ngày. Theo dõi – phân tích – cải thiện bản thân.
-                </Typography>
+                {/* HERO */}
+                <div className="max-w-3xl mx-auto text-center mb-20 px-4">
+                    <h1 className="text-4xl font-bold mb-4">
+                        Chào mừng đến với Habit Tracker
+                    </h1>
 
-                <Stack direction="row" justifyContent="center" spacing={2}>
-                    <Button
-                        variant="contained"
-                        size="large"
-                        component={RouterLink}
-                        to="/signup"
-                    >
-                        Bắt đầu ngay
-                    </Button>
+                    <p className="text-lg text-gray-600 mb-8">
+                        Xây dựng thói quen tốt mỗi ngày. Theo dõi – phân tích – cải thiện bản thân.
+                    </p>
 
-                    <Button
-                        variant="outlined"
-                        size="large"
-                        component={RouterLink}
-                        to="/login"
-                    >
-                        Đăng nhập
-                    </Button>
-                </Stack>
-            </Container>
-
-            {/* FEATURES */}
-            <Container maxWidth="lg" sx={{ pb: 10 }}>
-                <Grid container spacing={4}>
-                    <Grid item xs={12} md={4}>
-                        <Paper
-                            elevation={3}
-                            sx={{ p: 3, textAlign: "center", borderRadius: 3 }}
+                    <div className="flex justify-center gap-4">
+                        <Link
+                            to="/signup"
+                            className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
                         >
-                            <CheckCircleIcon sx={{ fontSize: 50, mb: 2 }} color="primary" />
-                            <Typography variant="h6" fontWeight="bold">
-                                Theo dõi thói quen
-                            </Typography>
-                            <Typography mt={1} color="text.secondary">
-                                Ghi lại các thói quen mỗi ngày, giúp bạn duy trì sự ổn định.
-                            </Typography>
-                        </Paper>
-                    </Grid>
+                            Bắt đầu ngay
+                        </Link>
 
-                    <Grid item xs={12} md={4}>
-                        <Paper
-                            elevation={3}
-                            sx={{ p: 3, textAlign: "center", borderRadius: 3 }}
+                        <Link
+                            to="/login"
+                            className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50"
                         >
-                            <TimelineIcon sx={{ fontSize: 50, mb: 2 }} color="primary" />
-                            <Typography variant="h6" fontWeight="bold">
-                                Thống kê chi tiết
-                            </Typography>
-                            <Typography mt={1} color="text.secondary">
-                                Biểu đồ và số liệu giúp bạn hiểu rõ tiến trình của mình.
-                            </Typography>
-                        </Paper>
-                    </Grid>
+                            Đăng nhập
+                        </Link>
+                    </div>
+                </div>
 
-                    <Grid item xs={12} md={4}>
-                        <Paper
-                            elevation={3}
-                            sx={{ p: 3, textAlign: "center", borderRadius: 3 }}
-                        >
-                            <AutoAwesomeIcon sx={{ fontSize: 50, mb: 2 }} color="primary" />
-                            <Typography variant="h6" fontWeight="bold">
-                                Phát triển bản thân
-                            </Typography>
-                            <Typography mt={1} color="text.secondary">
-                                Thay đổi cuộc sống từng bước, bắt đầu từ thói quen nhỏ.
-                            </Typography>
-                        </Paper>
-                    </Grid>
-                </Grid>
-            </Container>
-        </Box>
+                {/* FEATURES */}
+                <div className="max-w-6xl mx-auto px-4 pb-20 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <FeatureCard
+                        icon={<CheckCircleIcon className="w-12 h-12 text-blue-600 mx-auto mb-3" />}
+                        title="Theo dõi thói quen"
+                        desc="Ghi lại các thói quen mỗi ngày, giúp bạn duy trì sự ổn định."
+                    />
+
+                    <FeatureCard
+                        icon={<ChartBarIcon className="w-12 h-12 text-blue-600 mx-auto mb-3" />}
+                        title="Thống kê chi tiết"
+                        desc="Biểu đồ và số liệu giúp bạn hiểu rõ tiến trình của mình."
+                    />
+
+                    <FeatureCard
+                        icon={<SparklesIcon className="w-12 h-12 text-blue-600 mx-auto mb-3" />}
+                        title="Phát triển bản thân"
+                        desc="Thay đổi cuộc sống từng bước, bắt đầu từ thói quen nhỏ."
+                    />
+                </div>
+            </div>
+        </>
+    );
+}
+
+function FeatureCard({ icon, title, desc }) {
+    return (
+        <div className="bg-white p-6 rounded-xl shadow text-center">
+            {icon}
+            <h3 className="text-lg font-semibold">{title}</h3>
+            <p className="text-gray-600 mt-1">{desc}</p>
+        </div>
     );
 }

@@ -1,111 +1,118 @@
-import { Avatar, Box, Button, Card, CardContent, Stack, TextField, Typography, Link as MuiLink } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
 import { useState } from "react";
-
+import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
-    const [avatar, setAvatar] = useState(null);
+
+    // Avatar mặc định từ backend
+    const DEFAULT_AVATAR =
+        "https://res.cloudinary.com/tthau2004/image/upload/v1763722568/avatar-trang-4_xjfk1u.jpg";
+
+    const [avatarPreview, setAvatarPreview] = useState(DEFAULT_AVATAR);
+    const [avatarFile, setAvatarFile] = useState(null);
 
     const handleAvatarChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            setAvatar(URL.createObjectURL(file));
+            setAvatarPreview(URL.createObjectURL(file)); // Hiển thị preview
+            setAvatarFile(file); // Gửi file khi submit
         }
     };
 
-    return (
-        <Box
-            sx={{
-                height: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                bgcolor: (theme) => theme.palette.grey[100],
-                p: 2,
-            }}
-        >
-            <Card
-                sx={{
-                    width: "100%",
-                    maxWidth: 420,
-                    borderRadius: 3,
-                    boxShadow: 3,
-                    p: 2,
-                }}
-            >
-                <CardContent>
-                    <Typography
-                        variant="h5"
-                        textAlign="center"
-                        fontWeight="bold"
-                        mb={3}
-                    >
-                        Đăng ký tài khoản
-                    </Typography>
+    const handleSignup = async () => {
+        // const formData = new FormData();
 
-                    <Stack spacing={2}>
-                        <Box textAlign="center">
-                            <Avatar
-                                src={avatar}
-                                sx={{
-                                    width: 90,
-                                    height: 90,
-                                    margin: "0 auto",
-                                    mb: 1,
-                                }}
+        // formData.append("full_name", fullName);
+        // formData.append("email", email);
+        // formData.append("password", password);
+
+        // // Nếu người dùng CHỌN avatar → gửi lên
+        // if (avatarFile) {
+        //     formData.append("avatar", avatarFile);
+        // }
+
+        // // Nếu KHÔNG chọn → không append avatar → backend dùng avatar mặc định
+        // console.log("FormData chuẩn bị gửi:", [...formData.entries()]);
+    };
+
+    return (
+        <>
+            <Helmet>
+                <title>Habit Tracker - Đăng ký</title>
+            </Helmet>
+
+            <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+
+                <div className="bg-white shadow-lg rounded-2xl w-full max-w-md p-6">
+
+                    <h1 className="text-2xl font-bold text-center mb-4">
+                        Đăng ký tài khoản
+                    </h1>
+
+                    <div className="flex flex-col space-y-4">
+
+                        <div className="text-center">
+                            <img
+                                src={avatarPreview}
+                                alt="avatar"
+                                className="w-24 h-24 rounded-full mx-auto mb-2 object-cover bg-gray-200 border"
                             />
-                            <Button variant="outlined" component="label">
+
+                            <label className="inline-block px-4 py-2 border rounded-lg cursor-pointer hover:bg-gray-50">
                                 Chọn ảnh đại diện
                                 <input
+                                    type="file"
                                     hidden
                                     accept="image/*"
-                                    type="file"
                                     onChange={handleAvatarChange}
                                 />
-                            </Button>
-                        </Box>
+                            </label>
+                        </div>
 
-                        <TextField
-                            label="Tên người dùng"
-                            fullWidth
+                        <input
+                            type="text"
+                            placeholder="Tên người dùng"
+                            className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
 
-                        <TextField
-                            label="Email"
+                        <input
                             type="email"
-                            fullWidth
+                            placeholder="Email"
+                            className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
 
-                        <TextField
-                            label="Mật khẩu"
+                        <input
                             type="password"
-                            fullWidth
+                            placeholder="Mật khẩu"
+                            className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
 
-                        <TextField
-                            label="Xác nhận mật khẩu"
+                        <input
                             type="password"
-                            fullWidth
+                            placeholder="Xác nhận mật khẩu"
+                            className="border px-3 py-2 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                         />
 
-                        <Button variant="contained" size="large" fullWidth>
+                        {/* Submit */}
+                        <button
+                            onClick={handleSignup}
+                            className="w-full py-2 bg-blue-600 text-white rounded-lg text-lg hover:bg-blue-700 transition"
+                        >
                             Đăng ký
-                        </Button>
+                        </button>
 
-                        <Typography variant="body2" textAlign="center">
+                        {/* Login redirect */}
+                        <p className="text-center text-sm">
                             Đã có tài khoản?{" "}
-                            <MuiLink
-                                component={RouterLink}
-                                to="/login"
-                                underline="hover"
-                                sx={{ fontWeight: 500 }}
-                            >
+                            <Link to="/login" className="text-blue-600 hover:underline font-medium">
                                 Đăng nhập ngay
-                            </MuiLink>
-                        </Typography>
-                    </Stack>
-                </CardContent>
-            </Card>
-        </Box>
+                            </Link>
+                        </p>
+
+                    </div>
+
+                </div>
+            </div>
+        </>
     );
 }
