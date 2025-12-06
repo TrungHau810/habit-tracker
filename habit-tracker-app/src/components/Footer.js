@@ -5,7 +5,7 @@ import { FaFacebook, FaInstagram, FaGithub } from "react-icons/fa";
 
 export default function Footer() {
     return (
-        <footer className="bg-blue-600 text-white py-10 mt-10">
+        <footer className="bg-blue-600 text-white py-10">
             <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-3 gap-8">
 
                 <div>
@@ -37,17 +37,17 @@ export default function Footer() {
                     <div className="mt-3 space-y-2">
                         <div className="flex items-center">
                             <MapPinIcon className="w-5 h-5 mr-2" />
-                            <p>123 Đường ABC, Quận 1, TP.HCM</p>
+                            <p>Thành phố Thủ Đức, Thành phố Hồ Chí Minh</p>
                         </div>
 
                         <div className="flex items-center">
                             <EnvelopeIcon className="w-5 h-5 mr-2" />
-                            <p>Email: contact@mywebsite.com</p>
+                            <p>Email: tthau2004@gmail.com</p>
                         </div>
 
                         <div className="flex items-center">
                             <PhoneIcon className="w-5 h-5 mr-2" />
-                            <p>Hotline: 0909 123 456</p>
+                            <p>Hotline: <span className="italic">Đang cập nhật</span></p>
                         </div>
                     </div>
 

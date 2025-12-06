@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-// HEROICON IMPORT
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { ChartBarIcon } from "@heroicons/react/24/outline";
 import { SparklesIcon } from "@heroicons/react/24/outline";
+import { useContext } from "react";
+import { UserContext } from "../contexts/userContext";
 
 export default function Home() {
+
+    const [user, dispatch] = useContext(UserContext);
+
     return (
         <>
             <Helmet>
@@ -26,19 +30,38 @@ export default function Home() {
                     </p>
 
                     <div className="flex justify-center gap-4">
-                        <Link
-                            to="/signup"
-                            className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
-                        >
-                            Bắt đầu ngay
-                        </Link>
+                        {!user ? (
+                            <>
+                                <Link
+                                    to="/signup"
+                                    className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
+                                >
+                                    Bắt đầu ngay
+                                </Link>
 
-                        <Link
-                            to="/login"
-                            className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50"
-                        >
-                            Đăng nhập
-                        </Link>
+                                <Link
+                                    to="/login"
+                                    className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50"
+                                >
+                                    Đăng nhập
+                                </Link>
+                            </>
+                        ) : (
+                            <div className="flex justify-center gap-4">
+                                <Link to="/dashboard" className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700">
+                                    Đi đến Dashboard
+                                </Link>
+                                <button
+                                    onClick={() => {
+                                        localStorage.removeItem("user_data");
+                                        dispatch({ type: "LOGOUT" });
+                                    }}
+                                    className="px-6 py-3 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50"
+                                >
+                                    Đăng xuất
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
 

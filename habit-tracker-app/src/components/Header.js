@@ -1,13 +1,14 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/userContext";
+import cookie from "react-cookies";
 
 // Heroicons
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function Header() {
     const [open, setOpen] = useState(false);
-    const { user, dispatch } = useContext(UserContext);
+    const [user, dispatch] = useContext(UserContext);
     const nav = useNavigate();
 
     const navItems = [
@@ -16,6 +17,15 @@ export default function Header() {
         { name: "Tính năng", to: "/features" },
         { name: "Liên hệ", to: "/contact" }
     ];
+
+    const handleLogout = () => {
+        // Xoá cookie và thông tin user trong local storage
+        localStorage.removeItem("user_data");
+        cookie.remove("access_token", { path: "/" });
+        cookie.remove("refresh_token", { path: "/" });
+        dispatch({ type: "LOGOUT" });
+        nav("/");
+    }
 
     return (
         <>
@@ -51,7 +61,7 @@ export default function Header() {
                                 </span>
 
                                 <button
-                                    onClick={() => dispatch({ type: "logout" })}
+                                    onClick={handleLogout}
                                     className="px-4 py-2 border border-white rounded-lg hover:bg-white hover:text-blue-600 transition"
                                 >
                                     Đăng xuất
@@ -127,10 +137,7 @@ export default function Header() {
 
                     {user ? (
                         <button
-                            onClick={() => {
-                                dispatch({ type: "logout" });
-                                setOpen(false);
-                            }}
+                            onClick={handleLogout}
                             className="w-full text-left px-2 py-2 text-red-600 rounded hover:bg-red-50"
                         >
                             Đăng xuất
@@ -159,7 +166,7 @@ export default function Header() {
                         </>
                     )}
                 </nav>
-            </div>
+            </div >
         </>
     );
 }
