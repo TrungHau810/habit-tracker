@@ -42,7 +42,7 @@ class Habit(BaseModel, ActiveModel):
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     start_date = models.DateField(blank=False, null=False, default=timezone.now)
-    due_date = models.DateField(blank=True, null=True)
+    due_date = models.DateField(blank=False, null=False)
 
     class Meta:
         ordering = ['-created_at']
@@ -57,8 +57,8 @@ class HabitLog(BaseModel, ActiveModel):
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE, related_name='logs')
     date = models.DateTimeField(default=timezone.now)
     status = models.BooleanField(default=False)  # True if completed, False otherwise
-    notes = RichTextField(blank=True, null=True)
-    photo = CloudinaryField(null=True, blank=True)
+    notes = RichTextField(blank=False, null=False)
+    photo = CloudinaryField(null=False, blank=False)
 
     class Meta:
         ordering = ['-date']

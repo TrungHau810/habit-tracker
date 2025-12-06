@@ -45,10 +45,12 @@ class HabitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Habit
         fields = '__all__'
+        read_only_fields = ['user']
 
     def create(self, validated_data):
-        user = self.context['request'].user
-        habit = Habit.objects.create(user=user, **validated_data)
+        user = self.context.get('request').user
+        validated_data['user'] = user
+        habit = Habit.objects.create(**validated_data)
         return habit
 
 

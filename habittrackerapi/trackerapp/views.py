@@ -104,6 +104,11 @@ class HabitViewSet(viewsets.ViewSet, generics.ListAPIView, generics.CreateAPIVie
             return Response(serializer.data)
 
         elif request.method == "POST":
+            # Kiểm tra thói quen còn trong thời gian theo dõi không
+            today = timezone.localdate()
+            if habit.due_date < today:
+                return Response({"error": "Không thể thêm nhật ký cho thói quen đã quá hạn."}, status=400)
+
             data = request.data.copy()
             data['habit'] = habit.id
             serializer = serializers.HabitLogSerializer(data=data)
