@@ -138,7 +138,7 @@ export default function NewHabit() {
                         <input
                             type="date"
                             name="start_date"
-                            value={formatDate(form.start_date)}
+                            value={form.start_date}
                             onChange={handleChange}
                             className="w-full px-4 py-3 border rounded-lg shadow-sm bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none"
                             required
@@ -155,7 +155,7 @@ export default function NewHabit() {
                         <input
                             type="date"
                             name="due_date"
-                            value={formatDate(form.due_date)}
+                            value={form.due_date}
                             onChange={handleChange}
                             className="w-full px-4 py-3 border rounded-lg shadow-sm bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none"
                             required
