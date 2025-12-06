@@ -2,7 +2,7 @@ import axios from "axios";
 import cookie from 'react-cookies'
 
 
-const BASE_API_URL = "http://192.168.1.7:8000/api";
+const BASE_API_URL = "https://habit-tracker-4p0d.onrender.com/api";
 
 
 export const authApis = () => axios.create({
